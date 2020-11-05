@@ -169,3 +169,21 @@ def draw_boxes(filename, v_boxes, v_labels, v_scores):
         pyplot.text(x1, y1, label, color='yellow')
     # show the plot
     pyplot.show()
+
+
+def load_image_pixels(filename, shape):
+  # load image to get its shape
+  image = load_img(filename)
+  width, height = image.size
+
+  # load image with required size
+  image = load_img(filename, target_size=shape)
+  image = img_to_array(image)
+
+  # grayscale image normalization
+  image = image.astype('float32')
+  image /= 255.0
+
+  # add a dimension so that we have one sample
+  image = expand_dims(image, 0)
+  return image, width, height
